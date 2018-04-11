@@ -1,0 +1,27 @@
+
+
+.usersContainer{
+    display: flex;
+    flex-direction: column;
+    /* border: solid black 2px; */
+    width: 80%;
+    margin: 0 auto;
+    margin-top:10%;
+}
+
+.usersList{
+    position:relative;
+
+}
+
+.details{
+    position:absolute;
+    top: 0%;
+    left:40%;
+}
+
+.detailsList{
+    background-color:rgba(57, 154, 194, 0.79);
+    border-radius: 8px;
+    padding: 2px 13px;
+}
