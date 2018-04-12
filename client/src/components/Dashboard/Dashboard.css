@@ -51,9 +51,11 @@
     border-radius: 8px;
     padding: 2px 13px;
     width:40%;
+    height: 500px;
+    overflow: auto;
     position:absolute;
     left:50%;
-    top:9%;
+    top:13%;
 }
 
 .sortOptions{
@@ -71,10 +73,11 @@
 .changePage{
     /* border:solid black 1px; */
     display:flex;
-    width: 25%;
+    width: 29%;
     margin:0 auto;
     justify-content: space-between;
     margin-top:65px;
+    position:relative
 }
 
 .changePage a{
@@ -123,4 +126,22 @@
     font-weight: bold;
     text-transform: uppercase;
     margin-left: 18px;
+}
+
+.currency{
+    margin-left: 4px;
+    text-transform: uppercase;
+}
+
+.payMethod{
+    position:absolute;
+    top:60.8%;
+    left:11.2%;
+}
+
+.detailsBtn{
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 4px;
+
 }

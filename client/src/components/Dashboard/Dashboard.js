@@ -11,7 +11,7 @@ class Dashboard extends Component {
         page:0,
         showDetails:false,
         detailsId:'',
-        detailsButton:'ShowDetails',
+        detailsButton:'Show Details',
         error:'',
         showPage:0,
         sortValue:"username"
@@ -120,21 +120,18 @@ class Dashboard extends Component {
         let otherMethods= ""
         if(!this.state.searchOption){
              users = this.state.users.map(user=>{
-              const paymentMethod = user.PaymentMethods.filter(method=> method.default===true)
-            .map(method=> <div key={user.id}>
-                    {method.type} (currency: {method.currency})</div>
+                const paymentMethod = user.PaymentMethods.filter(method=> method.default===true)
+                 .map(method=> <div className={classes.payMethod} key={user.id}>
+                    {method.type} <span className={classes.currency}><i className="fa fa-money" style={{fontSize:'22px'}}></i> {method.currency}</span></div>
                 )
-            if(this.state.showDetails && this.state.users.length>0){
-
+             if(this.state.showDetails && this.state.users.length>0){
                     let selectUser = this.state.users.filter(user=> user.id ===this.state.detailsId)
                     if(selectUser.length>0){
-
                         selectid= selectUser[0].id
                         newDetails = selectUser.map(user=>{
-
                                 otherMethods = user.PaymentMethods.map((method,i)=>{
                                    return(
-                                       <div  key={i}>
+                                       <div key={i}>
                                            <p><b>{i+1+`)`} Method</b>: {i+1} {method.name}</p>
                                            <ul>
                                               <li><b>Type</b>: {method.type}</li>
@@ -146,7 +143,6 @@ class Dashboard extends Component {
                                         </div>
                                    )
                                })
-
                             return(
                                     <div
                                         style={{
@@ -161,20 +157,17 @@ class Dashboard extends Component {
                                                <p><b>All Payment Methods: </b>: {otherMethods}</p>
                                            </div>
                                    </div>
-
                                )
-
                         })
                     }
-
             }
              return  (
                  <div key={user.id} className={classes.usersList}>
                         <p><b>Username</b> : {user.username} </p>
                         <p><b>Id</b> : {user.id}</p>
                         <p><b> email </b>: {user.email}</p>
-                        <p><b>Payment_Method </b> :{paymentMethod}</p>
-                        <button onClick={(id)=>this.renderDetails(user.id)}>{selectid===user.id ? 'HideDetails': 'ShowDetails'}</button>
+                        <p><b>Payment Method </b> :{paymentMethod}</p>
+                        <button className={classes.detailsBtn}onClick={(id)=>this.renderDetails(user.id)}>{selectid===user.id ? 'Hide Details': 'Show Details'}</button>
                         <hr/>
                         <div className={classes.details}>
                             <p>{selectid===user.id  ? newDetails :null}</p>
@@ -182,7 +175,6 @@ class Dashboard extends Component {
                 </div>
                  )
              })
-
         }else{
             //build single user view
             if(this.state.users){
@@ -191,49 +183,41 @@ class Dashboard extends Component {
                 if(selectuser.length !== 0){
                     const paymentMethod2 = selectuser[0].PaymentMethods.filter(method=>method.default===true)
                             .map(method => <span key={selectuser.id}>
-                            {method.type} ( currency: {method.currency})</span>)
+                            {method.type} <span className={classes.currency}><i className="fa fa-money" style={{fontSize:'22px'}}></i> {method.currency}</span></span>)
 
                     singleUser = (<div key={singleUser.id}>
                                     <p><b>Username</b> : {selectuser[0].username} </p>
                                     <p><b>Id</b> : {selectuser[0].id}</p>
                                     <p><b> email </b>: {selectuser[0].email} </p>
-                                    <p><b>Payment_Method </b> :{paymentMethod2}</p>
-                        </div>)
-                }else{
-
+                                    <p><b>Payment Method </b> :{paymentMethod2}</p>
+                                </div>)
                 }
             }
         }
-
     return (
-      <div  >
-            <div className={classes.searchField}>
-                    <input placeholder= {'Search by e-mail'}value={this.state.value} onChange={(event)=>this.handleChange(event)}/>
-                    <a className={classes.searchBtn}href="#" onClick={()=> this.handleSearch()}>Search</a>
-            </div>
-            <div className={classes.changePage}>
-                    <div onClick={(goTo)=>this.changePage(goTo='prev')}><a href="#">Prev Page</a></div>
-                                <h2 className={classes.pages}>{this.state.showPage}</h2>
-                    <div onClick={(goTo)=>this.changePage(goTo='next')}><a href="#">Next Page</a></div>
+            <div>
+                    <div className={classes.searchField}>
+                            <input placeholder= {'Search by e-mail'}value={this.state.value} onChange={(event)=>this.handleChange(event)}/>
+                            <a className={classes.searchBtn}href="#" onClick={()=> this.handleSearch()}>Search</a>
+                    </div>
+                    <div className={classes.changePage}>
+                            <div onClick={(goTo)=>this.changePage(goTo='prev')}><a href="#">Prev Page</a></div>
+                                        <h2 className={classes.pages}>{this.state.showPage}</h2>
+                            <div onClick={(goTo)=>this.changePage(goTo='next')}><a href="#">Next Page</a></div>
+                    </div>
 
+                    <div className={classes.usersContainer}>
+                        {users}
+                        {singleUser}
+                        {this.state.error}
+                    </div>
             </div>
-            <div className={classes.sortOptions}>
-                    <Sort users={this.state.users} callBackFromParent={this.sortValue.bind(this)} />
-            </div>
-            <div className={classes.usersContainer}>
-
-
-                {users}
-                {singleUser}
-                {this.state.error}
-
-            </div>
-      </div>
         )
     }
-
 }
 export default Dashboard
 
-// <Link to={'/user/'+ user.id}>
-// </Link>
+
+// <div className={classes.sortOptions}>
+//         <Sort users={this.state.users} callBackFromParent={this.sortValue.bind(this)} />
+// </div>
