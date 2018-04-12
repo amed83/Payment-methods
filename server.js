@@ -15,11 +15,16 @@ app.use(bodyParser.urlencoded({
 
 app.use(bodyParser.json())
 
+// app.use(function (err, req, res, next) {
+//   console.error(err.stack)
+//   res.status(500).send('Something broke!')
+// })
+
 app.get('/users/:id', (req, res) => {
     const id = req.params.id
     request('https://challenges.tate.cloud/front2018/users?page='+id)
-
     .pipe(res)
+
 });
 
 app.get('/page/:number', (req, res) => {

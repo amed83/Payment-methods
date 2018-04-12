@@ -1,0 +1,15 @@
+.mainSort select{
+    font-size: 12px;
+    font-weight: bold;
+    border-radius: 2px;
+}
+
+.mainSort select option{
+    font-size: 12px;
+    font-weight: bold;
+    width: 3px;
+}
+
+label{
+    color:#6c6464;
+}
