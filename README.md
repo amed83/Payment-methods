@@ -15,6 +15,6 @@ React SPA showing users data fetching them from an existing API
 * Create a sorting menu
 * Reload the page automatically when errors from the back-end happen
 
----
 
-![HomePage](.client/src/img/screenshot.png)
+
+![Payment-Methods HomePage](screenshot.png)
