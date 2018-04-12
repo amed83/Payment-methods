@@ -63,3 +63,64 @@
     font-size: 12px;
     font-weight: bold;
 }
+
+.pages{
+    margin-top:-4px;
+}
+
+.changePage{
+    /* border:solid black 1px; */
+    display:flex;
+    width: 25%;
+    margin:0 auto;
+    justify-content: space-between;
+    margin-top:65px;
+}
+
+.changePage a{
+    text-decoration: none;
+    border: 2px solid rgb(33, 94, 57);
+    border-radius:80px;
+    padding: 12px 32px;
+    background-color: rgba(110, 221, 33, 0.86);
+    color:rgb(47, 50, 47);
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.changePage a:hover{
+    color:rgb(211, 209, 223);
+}
+
+.searchField{
+    position:absolute;
+    top:25%;
+    left:10%;
+    display: flex;
+    justify-content: space-between;
+    width: 17%;
+}
+
+.searchField input{
+    border:solid 2px rgb(115, 115, 111);
+    border-radius: 40px;
+    padding: 5px 11px;
+}
+
+.searchField input:focus{
+    outline: none !important;
+    border:solid 2px rgb(32, 97, 203);
+    border-radius: 40px;
+}
+
+.searchBtn{
+    text-decoration: none;
+    border: 1px solid rgb(77, 75, 75);
+    border-radius:7px;
+    padding: 5px 10px;
+    background-color: rgb(140, 145, 139);
+    color:rgb(47, 50, 47);
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-left: 18px;
+}

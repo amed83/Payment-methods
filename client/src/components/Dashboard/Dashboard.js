@@ -26,7 +26,6 @@ class Dashboard extends Component {
 
     newSort(data){
         const {users,sortValue} = this.state
-
         if(users.length>0){
             const compare = (a,b)=>{
                 if(a.sortValue < b.sortValue){
@@ -37,21 +36,15 @@ class Dashboard extends Component {
                 }
                 return 0;
             }
-            // let newUserList = users.sort(compare).map(user=>{
-            //         return user
-            // })
             let newUserList = users.sort(compare)
-
             this.setState({users:newUserList})
-
         }
-
     }
 
     getData(){
         axios.get('/users/:0')
         .then(data=>{
-
+            console.log('data for search',data)
             this.setState({
                 users:data.data.Users
             },()=>this.newSort())
@@ -108,8 +101,6 @@ class Dashboard extends Component {
                     this.setState({
                         users:data.data.Users
                     },()=>this.setState({showPage:this.state.page}))
-                }else{
-                    // console.log('no data erroooooorrrrrrr')
                 }
             }).catch(err=> this.setState({error: 'Error, please reload the page'}))
         })
@@ -131,7 +122,7 @@ class Dashboard extends Component {
              users = this.state.users.map(user=>{
               const paymentMethod = user.PaymentMethods.filter(method=> method.default===true)
             .map(method=> <div key={user.id}>
-                    {method.type}, currency: {method.currency}</div>
+                    {method.type} (currency: {method.currency})</div>
                 )
             if(this.state.showDetails && this.state.users.length>0){
 
@@ -146,6 +137,7 @@ class Dashboard extends Component {
                                        <div  key={i}>
                                            <p><b>{i+1+`)`} Method</b>: {i+1} {method.name}</p>
                                            <ul>
+                                              <li><b>Type</b>: {method.type}</li>
                                                <li><b>ID</b>: {method.id}</li>
                                                <li><b>Ending-with</b>: {method.ending_with}</li>
                                                <li><b>Currency</b>: {method.currency}</li>
@@ -199,7 +191,7 @@ class Dashboard extends Component {
                 if(selectuser.length !== 0){
                     const paymentMethod2 = selectuser[0].PaymentMethods.filter(method=>method.default===true)
                             .map(method => <span key={selectuser.id}>
-                            {method.type}, currency: {method.currency}</span>)
+                            {method.type} ( currency: {method.currency})</span>)
 
                     singleUser = (<div key={singleUser.id}>
                                     <p><b>Username</b> : {selectuser[0].username} </p>
@@ -208,24 +200,29 @@ class Dashboard extends Component {
                                     <p><b>Payment_Method </b> :{paymentMethod2}</p>
                         </div>)
                 }else{
-                    console.log('stocazzo')
+
                 }
             }
         }
 
     return (
       <div  >
+            <div className={classes.searchField}>
+                    <input placeholder= {'Search by e-mail'}value={this.state.value} onChange={(event)=>this.handleChange(event)}/>
+                    <a className={classes.searchBtn}href="#" onClick={()=> this.handleSearch()}>Search</a>
+            </div>
+            <div className={classes.changePage}>
+                    <div onClick={(goTo)=>this.changePage(goTo='prev')}><a href="#">Prev Page</a></div>
+                                <h2 className={classes.pages}>{this.state.showPage}</h2>
+                    <div onClick={(goTo)=>this.changePage(goTo='next')}><a href="#">Next Page</a></div>
 
-            <input value={this.state.value} onChange={(event)=>this.handleChange(event)}/>
-            <button onClick={()=> this.handleSearch()}>Search</button>
-            <div onClick={(goTo)=>this.changePage(goTo='next')}><a href="#">NextPage</a></div>
-            <div onClick={(goTo)=>this.changePage(goTo='prev')}><a href="#">PrevPage</a></div>
+            </div>
             <div className={classes.sortOptions}>
                     <Sort users={this.state.users} callBackFromParent={this.sortValue.bind(this)} />
             </div>
             <div className={classes.usersContainer}>
 
-                {this.state.showPage}
+
                 {users}
                 {singleUser}
                 {this.state.error}
