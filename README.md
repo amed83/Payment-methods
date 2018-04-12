@@ -17,4 +17,4 @@ React SPA showing users data fetching them from an existing API
 
 ---
 
-![HomePage](./src/img/screenshot.png)
+![HomePage](.client/src/img/screenshot.png)
