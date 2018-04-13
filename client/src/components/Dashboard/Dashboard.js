@@ -213,8 +213,3 @@ class Dashboard extends Component {
     }
 }
 export default Dashboard
-
-
-// <div className={classes.sortOptions}>
-//         <Sort users={this.state.users} callBackFromParent={this.sortValue.bind(this)} />
-// </div>
