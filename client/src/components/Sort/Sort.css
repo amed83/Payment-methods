@@ -1,7 +1,9 @@
 .mainSort select{
-    font-size: 12px;
+    font-size: 14px;
     font-weight: bold;
-    border-radius: 2px;
+    border-radius: 5px;
+
+    left:8%;
 }
 
 .mainSort select option{
@@ -12,4 +14,5 @@
 
 label{
     color:#6c6464;
+    font-size:15px;
 }

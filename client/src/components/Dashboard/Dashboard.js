@@ -18,25 +18,35 @@ class Dashboard extends Component {
     }
 
     sortValue(dataFromChild){
-
         this.setState({
             sortValue:dataFromChild,
-        },()=>this.newSort(dataFromChild))
+        },()=>this.newSort())
     }
 
-    newSort(data){
-        const {users,sortValue} = this.state
+    newSort(){
+        const users = this.state.users
+        const  compareValue= this.state.sortValue
         if(users.length>0){
             const compare = (a,b)=>{
-                if(a.sortValue < b.sortValue){
-                    return -1
+                    let comparison = 0
+                if(compareValue ==='username'){
+                    if(a.username>b.username){
+                        comparison=1
+                    }else if(a.username<b.username){
+                        comparison=-1
+                    }
+                    return comparison
                 }
-                if(a.sortValue < b.sortValue){
-                    return 1
+                else if (compareValue==='email'){
+                    if(a.email>b.email){
+                        comparison=1
+                    }else if(a.email<b.email){
+                        comparison=-1
+                    }
+                    return comparison
                 }
-                return 0;
             }
-            let newUserList = users.sort(compare)
+            let newUserList = users.slice().sort(compare)
             this.setState({users:newUserList})
         }
     }
@@ -44,7 +54,6 @@ class Dashboard extends Component {
     getData(){
         axios.get('/users/:0')
         .then(data=>{
-            console.log('data for search',data)
             this.setState({
                 users:data.data.Users
             },()=>this.newSort())
@@ -88,6 +97,7 @@ class Dashboard extends Component {
     }
 
     changePage(goTo){
+        let arrUsers=[]
         let {page} = this.state
         //if you're already at page 0 you can't go to prev
         if(page===0 && goTo==='prev'){
@@ -97,9 +107,10 @@ class Dashboard extends Component {
             axios.get(`/page/:${this.state.page}`)
             .then(data=>{
                 if(data){
+                    arrUsers=data.data.Users
                     this.setState({
                         users:data.data.Users
-                    },()=>this.setState({showPage:this.state.page}))
+                    },()=>this.setState({showPage:this.state.page},()=>this.newSort(arrUsers)))
                 }
             }).catch(err=> this.setState({error: 'Error, please reload the page'}))
         })
@@ -202,7 +213,9 @@ class Dashboard extends Component {
                                         <h2 className={classes.pages}>{this.state.showPage}</h2>
                             <div onClick={(goTo)=>this.changePage(goTo='next')}><a href="#">Next Page</a></div>
                     </div>
-
+                    <div className={classes.sortOptions}>
+                            <Sort users={this.state.users} callBackFromParent={this.sortValue.bind(this)} />
+                    </div>
                     <div className={classes.usersContainer}>
                         {users}
                         {singleUser}
