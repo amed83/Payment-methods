@@ -13,7 +13,6 @@ class Sort extends Component{
          })
      }
      render(){
-
         return(
             <div className={classes.mainSort}>
                 <label >Order by </label>

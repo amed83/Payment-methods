@@ -75,7 +75,6 @@ class Dashboard extends Component {
     }
 
     renderDetails(id){
-
         if(this.state.showDetails && id===this.state.detailsId){
             this.setState({
                     showDetails:false
@@ -106,20 +105,18 @@ class Dashboard extends Component {
         })
     }
 
-    closeModal(e){
-
+    closeModal(){
         this.setState({showDetails:!this.state.showDetails})
-
     }
   render() {
 
-        let users= ""
+        // let users= ""
         let singleUser= ""
         let selectid= ""
         let newDetails = ""
         let otherMethods= ""
         if(!this.state.searchOption){
-             users = this.state.users.map(user=>{
+              users = this.state.users.map(user=>{
                 const paymentMethod = user.PaymentMethods.filter(method=> method.default===true)
                  .map(method=> <div className={classes.payMethod} key={user.id}>
                     {method.type} <span className={classes.currency}><i className="fa fa-money" style={{fontSize:'22px'}}></i> {method.currency}</span></div>
